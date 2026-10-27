@@ -320,10 +320,34 @@ function renderBetList() {
   if (!el || !currentRoom) return;
   const bets = Object.values(currentRoom.bets || {});
   if (!bets.length) { el.innerHTML = ''; return; }
-  el.innerHTML = `<div class="card" style="margin-top:8px">
-    <div class="ctitle">הגישו הימור (${bets.length})</div>
-    ${bets.map(b=>`<div class="bitem"><span class="bname">${esc(b.name)}</span><span class="btime">${fmtT(b.submittedAt)}</span></div>`).join('')}
-  </div>`;
+  let myName = null;
+  try { myName = localStorage.getItem('bet_' + currentRoomCode); } catch(e) {}
+  if (myName) {
+    // show full bet details for everyone
+    el.innerHTML = `<div class="card" style="margin-top:8px">
+      <div class="ctitle">הימורי המשפחה (${bets.length})</div>
+      ${bets.map(b => {
+        const rows = PARTIES.map(p => {
+          const v = b.bets?.[p.id];
+          if (v == null) return '';
+          return `<tr><td style="text-align:right;padding:4px 8px">${esc(p.name)}</td><td style="font-weight:800;text-align:center;padding:4px 8px;font-variant-numeric:tabular-nums">${v}</td></tr>`;
+        }).join('');
+        return `<div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span class="bname" style="font-size:1rem">${esc(b.name)}${b.name===myName?' <span style="color:var(--good);font-size:.8rem">(אתה)</span>':''}</span>
+            <span class="btime">${fmtT(b.submittedAt)}</span>
+          </div>
+          <div class="twrap"><table class="stbl"><tbody>${rows}</tbody></table></div>
+        </div>`;
+      }).join('<hr style="border:none;border-top:1px solid var(--bdr);margin:10px 0">')}
+    </div>`;
+  } else {
+    // only show names before submitting
+    el.innerHTML = `<div class="card" style="margin-top:8px">
+      <div class="ctitle">הגישו הימור (${bets.length})</div>
+      ${bets.map(b=>`<div class="bitem"><span class="bname">${esc(b.name)}</span><span class="btime">${fmtT(b.submittedAt)}</span></div>`).join('')}
+    </div>`;
+  }
 }
 
 function renderResults() {
