@@ -416,7 +416,7 @@ function wireBetForm() {
 
 async function doShare() {
   const baseUrl = location.origin;
-  const msg = `הימורי בחירות 2026 🗳️\nהצטרפו לחדר המשפחה!\n\nקישור למשחק: ${baseUrl}\nזהו הקוד של ${currentRoom?.name}: ${currentRoomCode}`;
+  const msg = `הימורי בחירות 2026 🗳️\nהצטרפו לחדר המשפחה!\n\nקישור למשחק:\n${baseUrl}\n\nמספר הקבוצה הוא ${currentRoomCode}`;
   try {
     if (navigator.share) { await navigator.share({title:'הימורי בחירות 2026', text: msg, url: baseUrl}); }
     else { await navigator.clipboard.writeText(msg); const b = document.getElementById('share-btn'); b.innerHTML='<span>✓ הועתק!</span>'; setTimeout(()=>b.innerHTML='📤 שתף את חדר המשפחה',2500); }
