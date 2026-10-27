@@ -1,0 +1,3 @@
+[deploy]
+startCommand = "npm start"
+healthcheckPath = "/api/state"

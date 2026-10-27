@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>הימורי בחירות 2026</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Frank+Ruhl+Libre:wght@400;700;900&display=swap">
+<style>
+:root{--bg:#eef0f8;--sur:#fff;--sur2:#e4e8f4;--navy:#1a2a5e;--navy2:#2a3d80;--gold:#b8902e;--goldl:#d4aa48;--fg:#12192e;--fg2:#505880;--bdr:#c8ceea;--good:#1e7a40;--bad:#b02020;--warn:#a06010;color-scheme:light}
+@media(prefers-color-scheme:dark){:root{--bg:#0c1422;--sur:#162035;--sur2:#1c2b48;--navy:#3050a8;--navy2:#4060c0;--gold:#c8a040;--goldl:#e0bc58;--fg:#e4e8f8;--fg2:#7888b8;--bdr:#253050;--good:#28a050;--bad:#e04040;--warn:#d08020;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:'Assistant',system-ui,sans-serif;direction:rtl}
+h1,h2,h3{font-family:'Frank Ruhl Libre',serif;text-wrap:balance;margin:0}
+.hdr{background:var(--navy);color:var(--goldl);text-align:center;padding:16px;position:sticky;top:0;z-index:10;border-bottom:3px solid var(--gold)}
+.hdr h1{font-size:clamp(1.1rem,4vw,1.5rem);font-weight:900;color:var(--goldl)}
+.hdr .sub{font-size:.8rem;color:var(--gold);opacity:.85;margin-top:3px}
+.main{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+.card{background:var(--sur);border:1px solid var(--bdr);border-radius:14px;padding:20px 18px;margin-bottom:12px}
+.ctitle{font-family:'Frank Ruhl Libre',serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 20px;border-radius:8px;font-family:'Assistant',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;border:none;transition:opacity .15s,transform .1s}
+.btn:hover:not(:disabled){opacity:.88}.btn:active:not(:disabled){transform:scale(.98)}.btn:disabled{opacity:.38;cursor:not-allowed}
+.btn-f{width:100%}.btn-n{background:var(--navy);color:var(--goldl)}.btn-g{background:var(--gold);color:#fff}
+.btn-o{background:transparent;color:var(--navy);border:2px solid var(--navy)}
+.btn-d{background:var(--bad);color:#fff;font-size:.85rem;padding:7px 13px;border-radius:6px;cursor:pointer;border:none;font-family:'Assistant',sans-serif;font-weight:700}
+.fld{margin-bottom:13px}.fld label{display:block;font-weight:700;font-size:.88rem;margin-bottom:5px;color:var(--fg2)}
+.fld input{width:100%;padding:10px 13px;border:1.5px solid var(--bdr);border-radius:8px;background:var(--sur2);color:var(--fg);font-family:'Assistant',sans-serif;font-size:1rem;direction:rtl;outline:none;transition:border-color .15s}
+.fld input:focus{border-color:var(--navy)}
+.msg{padding:10px 13px;border-radius:8px;font-size:.88rem;font-weight:600;margin-bottom:10px}
+.msg-e{background:rgba(176,32,32,.1);color:var(--bad)}.msg-s{background:rgba(30,122,64,.1);color:var(--good)}.msg-i{background:rgba(26,42,94,.08);color:var(--navy)}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:.8rem;font-weight:700}
+.chip-o{background:rgba(30,122,64,.13);color:var(--good)}.chip-l{background:rgba(176,32,32,.13);color:var(--bad)}
+.loading{text-align:center;padding:50px 0;color:var(--fg2);font-size:1.1rem}
+.bitem{display:flex;align-items:center;justify-content:space-between;padding:7px 11px;background:var(--sur2);border-radius:8px;margin-bottom:5px;gap:8px}
+.bname{font-weight:700}.btime{font-size:.76rem;color:var(--fg2);flex-shrink:0}
+.rcard{border:2px solid var(--gold);border-radius:12px;padding:15px;margin-bottom:10px;background:var(--sur)}
+.rtitle{font-family:'Frank Ruhl Libre',serif;font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:11px}
+.twrap{overflow-x:auto}
+.stbl{width:100%;border-collapse:collapse;font-size:.88rem;font-variant-numeric:tabular-nums;min-width:280px}
+.stbl th{background:var(--navy);color:var(--goldl);padding:7px 12px;text-align:center;font-weight:700;font-size:.8rem}
+.stbl td{padding:8px 12px;border-bottom:1px solid var(--bdr);text-align:center}
+.stbl tr:last-child td{border-bottom:none}.stbl tr:hover td{background:var(--sur2)}
+.rg{color:var(--gold);font-weight:900;font-size:1.05rem}.rs{color:var(--fg2);font-weight:800}
+.s0{color:var(--good);font-weight:800}.sh{color:var(--bad)}
+.srow{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:12px}
+.stile{flex:1;min-width:90px;background:var(--sur2);border-radius:10px;padding:13px 14px;text-align:center}
+.snum{font-size:1.8rem;font-weight:900;color:var(--navy);font-variant-numeric:tabular-nums;line-height:1}
+.slbl{font-size:.76rem;color:var(--fg2);font-weight:600;margin-top:3px}
+.home-split{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:520px){.home-split{grid-template-columns:1fr}}
+.rlink{text-align:center;margin-top:26px;font-size:.8rem;color:var(--fg2)}
+.rlink a{color:var(--fg2);text-decoration:underline dotted;cursor:pointer}
+.share-big{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--navy);color:var(--goldl);border-radius:10px;padding:13px 16px;cursor:pointer;border:none;width:100%;font-family:'Assistant',sans-serif;font-size:1rem;font-weight:800;margin-top:8px}
+.share-big:hover{opacity:.9}
+.minput{width:64px;padding:6px 8px;border:1.5px solid var(--bdr);border-radius:6px;background:var(--sur);color:var(--fg);font-family:'Assistant',sans-serif;font-size:.95rem;font-variant-numeric:tabular-nums;text-align:center;outline:none;transition:border-color .15s;flex-shrink:0}
+.minput:focus{border-color:var(--navy)}
+.tbar{text-align:center;padding:9px 13px;border-radius:8px;font-weight:700;font-size:.92rem;margin-top:8px}
+.tok{background:rgba(30,122,64,.12);color:var(--good)}.tover{background:rgba(176,32,32,.12);color:var(--bad)}.tunder{background:rgba(184,144,46,.12);color:var(--warn)}
+.btbl td{padding:5px 8px;vertical-align:middle}
+.btbl .pcell{text-align:center;font-size:1rem;font-weight:800;color:var(--fg2);min-width:36px}
+.btbl tbody tr:nth-child(even) td{background:rgba(0,0,0,.025)}.btbl tbody tr:hover td{background:var(--sur2)}
+.pname{font-weight:700;font-size:.88rem}.pleader{font-size:.74rem;color:var(--fg2)}
+details summary{cursor:pointer;font-size:.82rem;color:var(--fg2);padding:5px 0;user-select:none}
+.pg{display:flex;flex-wrap:wrap;gap:3px 12px}.pi{display:flex;gap:3px;align-items:baseline}
+.pp{color:var(--fg2)}.pn{font-weight:800;color:var(--fg);font-variant-numeric:tabular-nums}
+.plist{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:5px}
+.bprow{display:flex;align-items:center;gap:8px;padding:8px 11px;background:var(--sur2);border-radius:8px}
+.bprow .pinfo{flex:1;min-width:0}
+.poll-cells{display:flex;gap:5px;flex-shrink:0}
+.pcol{display:flex;flex-direction:column;align-items:center;gap:1px;min-width:34px}
+.pcol-val{font-size:.92rem;font-weight:900;color:var(--navy);font-variant-numeric:tabular-nums}
+.pcol-nil{color:var(--fg2);font-weight:400;font-size:.8rem}
+footer{text-align:center;padding:18px 0 10px;font-size:.72rem;color:var(--fg2);opacity:.65}
+</style>
+</head>
+<body>
+<div class="hdr"><h1>🗳 הימורי בחירות 2026</h1><div class="sub" id="hsub">בחירות לכנסת ה-26 — 27.10.2026</div></div>
+<div class="main" id="app"><div class="loading">טוען…</div></div>
+<footer>© כל הזכויות שמורות לניב סדובסקי</footer>
+
+<script>
+'use strict';
+
+const PARTIES = [
+  {id:'likud',    name:'ליכוד',                      leader:'בנימין נתניהו'},
+  {id:'yashar',   name:'ישר!',                        leader:'גדי איזנקוט'},
+  {id:'beyahad',  name:'ביחד',                        leader:'נפתלי בנט'},
+  {id:'democrats',name:'הדמוקרטים',                  leader:'יאיר גולן'},
+  {id:'joint',    name:'הרשימה המשותפת',              leader:'יוסף ג\'בארין'},
+  {id:'shas',     name:'ש"ס',                         leader:'אריה דרעי'},
+  {id:'bitenyu',  name:'ישראל ביתנו',                 leader:'אביגדור ליברמן'},
+  {id:'zionut',   name:'ציונות הדתית וזהות',          leader:'סמוטריץ\' ופייגלין'},
+  {id:'otzma',    name:'עוצמה יהודית',               leader:'איתמר בן גביר'},
+  {id:'degel',    name:'יהדות התורה',                 leader:'יעקב אשר'},
+  {id:'raam',     name:'רע"מ',                        leader:'מנסור עבאס'},
+  {id:'amcha',    name:'עמך ישראל',                   leader:'עופר וינטר'},
+  {id:'miluim',   name:'המילואימניקים והכלכלית',      leader:'הנדל וזליכה'},
+];
+
+const POLL_DATA = {
+  likud:[19,19,30], yashar:[23,22,20], beyahad:[15,14,11],
+  democrats:[9,10,8], joint:[9,9,8], shas:[8,7,9],
+  bitenyu:[8,8,5], zionut:[6,8,7], otzma:[7,8,8],
+  degel:[7,8,8], raam:[5,7,6], amcha:[4,null,null], miluim:[null,null,null],
+};
+
+const CLOSE_TIME = new Date('2026-10-27T22:00:00+03:00');
+
+const app = () => document.getElementById('app');
+const esc = s => String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const fmtT = iso => iso ? new Date(iso).toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}) : '';
+const isClosed = (locked) => locked || new Date() >= CLOSE_TIME;
+
+let adminToken = null;
+let currentRoom = null;
+let currentRoomCode = null;
+let evtSource = null;
+
+function flash(container, txt, type='i') {
+  const d = document.createElement('div');
+  d.className = 'msg msg-' + type;
+  d.textContent = txt;
+  container.prepend(d);
+  setTimeout(() => d.remove(), 4500);
+}
+
+async function api(method, path, body) {
+  const opts = { method, headers: {'Content-Type':'application/json'} };
+  if (adminToken) opts.headers['x-admin-token'] = adminToken;
+  if (body) opts.body = JSON.stringify(body);
+  const r = await fetch(path, opts);
+  const json = await r.json();
+  if (!r.ok) throw new Error(json.error || 'שגיאה');
+  return json;
+}
+
+function connectSSE(roomCode) {
+  if (evtSource) evtSource.close();
+  const ch = roomCode || '*';
+  evtSource = new EventSource(`/api/stream?room=${ch}`);
+  evtSource.addEventListener('bet_submitted', e => {
+    const { roomCode: rc, bet } = JSON.parse(e.data);
+    if (rc === currentRoomCode && currentRoom) {
+      currentRoom.bets[bet.id] = bet;
+      renderBetList();
+    }
+  });
+  evtSource.addEventListener('lock_changed', e => {
+    const { locked } = JSON.parse(e.data);
+    if (currentRoom) { currentRoom.locked = locked; renderLockChip(); }
+  });
+  evtSource.addEventListener('result_added', e => {
+    const { result } = JSON.parse(e.data);
+    if (currentRoom) {
+      if (!currentRoom.results) currentRoom.results = [];
+      currentRoom.results.push(result);
+      renderResults();
+    }
+  });
+  evtSource.addEventListener('result_deleted', e => {
+    const { id } = JSON.parse(e.data);
+    if (currentRoom?.results) {
+      currentRoom.results = currentRoom.results.filter(r => r.id !== id);
+      renderResults();
+    }
+  });
+  evtSource.addEventListener('room_created', () => {
+    // refresh home stats if on home
+    if (!currentRoomCode) loadHome();
+  });
+}
+
+// ── Home ──
+
+let homeStats = null;
+
+async function loadHome() {
+  try {
+    const state = await api('GET', '/api/state');
+    const rooms = state.rooms || {};
+    homeStats = {
+      roomCount: Object.keys(rooms).length,
+      betCount: Object.values(rooms).reduce((s,r)=>s+Object.keys(r.bets||{}).length,0)
+    };
+    renderHome();
+  } catch(e) { renderHome(); }
+}
+
+function renderHome() {
+  document.getElementById('hsub').textContent = 'בחירות לכנסת ה-26 — 27.10.2026';
+  currentRoomCode = null; currentRoom = null;
+  connectSSE(null);
+  const s = homeStats || {roomCount:0, betCount:0};
+  app().innerHTML = `
+    <div class="card">
+      <div class="ctitle" style="text-align:center">ברוכים הבאים 🗳</div>
+      <p style="color:var(--fg2);font-size:.9rem;text-align:center;margin:0 0 18px">כל משפחה מהמרת על מנדטים — <strong>פחות שגיאות = מנצח</strong></p>
+      <div id="msg-home"></div>
+      <div class="home-split">
+        <div style="background:var(--sur2);border-radius:12px;padding:16px">
+          <div style="font-weight:800;font-size:.95rem;margin-bottom:10px;color:var(--navy)">יש לי קוד חדר 🔑</div>
+          <div class="fld" style="margin-bottom:9px">
+            <label for="jcode">קוד 5 ספרות</label>
+            <input type="text" id="jcode" placeholder="12345" maxlength="5" inputmode="numeric" autocomplete="off"
+              style="font-size:1.4rem;font-weight:900;letter-spacing:4px;text-align:center;font-variant-numeric:tabular-nums">
+          </div>
+          <button class="btn btn-n btn-f" id="join-btn">כניסה לחדר →</button>
+        </div>
+        <div style="background:var(--sur2);border-radius:12px;padding:16px">
+          <div style="font-weight:800;font-size:.95rem;margin-bottom:10px;color:var(--navy)">פותחים חדר חדש 🏠</div>
+          <div class="fld" style="margin-bottom:9px">
+            <label for="rname">שם המשפחה</label>
+            <input type="text" id="rname" placeholder="משפחת כהן" maxlength="40" autocomplete="off">
+          </div>
+          <button class="btn btn-g btn-f" id="create-btn">צור חדר</button>
+        </div>
+      </div>
+    </div>
+    ${s.roomCount ? `<div class="card" style="font-size:.85rem;color:var(--fg2)">
+      <span>חדרים פעילים: <strong>${s.roomCount}</strong></span> &nbsp;·&nbsp;
+      <span>הימורים שהוגשו: <strong>${s.betCount}</strong></span>
+    </div>` : ''}
+    <div class="rlink"><a id="adm-link">כניסה לניהול (הזנת תוצאות)</a></div>`;
+
+  document.getElementById('create-btn').onclick = doCreateRoom;
+  document.getElementById('rname').addEventListener('keydown', e => { if(e.key==='Enter') doCreateRoom(); });
+  document.getElementById('join-btn').onclick = doJoinRoom;
+  document.getElementById('jcode').addEventListener('keydown', e => { if(e.key==='Enter') doJoinRoom(); });
+  document.getElementById('adm-link').onclick = () => renderAdminLogin();
+}
+
+async function doCreateRoom() {
+  const name = document.getElementById('rname').value.trim();
+  if (!name) { document.getElementById('rname').focus(); return; }
+  const btn = document.getElementById('create-btn');
+  btn.disabled = true; btn.textContent = 'יוצר חדר…';
+  try {
+    const { code } = await api('POST', '/api/rooms', { name });
+    history.pushState({}, '', '#room-' + code);
+    await loadRoom(code);
+  } catch(e) {
+    btn.disabled = false; btn.textContent = 'צור חדר';
+    flash(document.getElementById('msg-home'), 'שגיאה: ' + e.message, 'e');
+  }
+}
+
+async function doJoinRoom() {
+  const code = document.getElementById('jcode').value.trim().replace(/\D/g,'');
+  if (!code || code.length !== 5) {
+    flash(document.getElementById('msg-home'), 'הכנס קוד של 5 ספרות', 'e');
+    document.getElementById('jcode').focus(); return;
+  }
+  await loadRoom(code);
+}
+
+// ── Room ──
+
+async function loadRoom(code) {
+  app().innerHTML = '<div class="loading">טוען חדר…</div>';
+  try {
+    const state = await api('GET', '/api/state');
+    const room = await api('GET', `/api/rooms/${code}`);
+    room.locked = state.bettingLocked;
+    room.results = state.results || [];
+    currentRoom = room;
+    currentRoomCode = code;
+    history.pushState({}, '', '#room-' + code);
+    connectSSE(code);
+    renderRoom();
+  } catch(e) {
+    flash(app(), 'החדר לא נמצא', 'e');
+    setTimeout(() => renderHome(), 1500);
+  }
+}
+
+function renderRoom() {
+  const room = currentRoom;
+  const code = currentRoomCode;
+  const closed = isClosed(room.locked);
+  document.getElementById('hsub').textContent = room.name;
+
+  let myName = null;
+  try { myName = localStorage.getItem('bet_' + code); } catch(e) {}
+
+  app().innerHTML = `
+    <div class="card" id="room-hdr">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:13px">
+        <div class="ctitle" style="margin:0">${esc(room.name)}</div>
+        <span class="chip ${closed?'chip-l':'chip-o'}" id="lock-chip">${closed?'🔒 סגורים':'🟢 פתוחים'}</span>
+      </div>
+      <div style="background:var(--sur2);border-radius:10px;padding:12px 14px;margin-bottom:8px">
+        <div style="font-size:.78rem;color:var(--fg2);font-weight:700;margin-bottom:3px">קוד המשפחה</div>
+        <div style="font-size:2rem;font-weight:900;letter-spacing:5px;font-variant-numeric:tabular-nums;color:var(--navy)">${esc(code)}</div>
+      </div>
+      <button class="share-big" id="share-btn">📤 שתף את חדר המשפחה</button>
+      <div style="font-size:.74rem;color:var(--fg2);margin-top:5px">השיתוף שולח קישור + קוד הכניסה</div>
+      <div id="msg-room"></div>
+    </div>
+    ${!closed && !myName ? betFormHTML() : myName
+      ? `<div class="card"><div class="msg msg-s">✓ הגשת את ההימור שלך בשם "${esc(myName)}"</div></div>`
+      : `<div class="card"><div class="msg msg-e">🔒 ההימורים נסגרו.</div></div>`}
+    <div id="bet-list"></div>
+    <div id="results-list"></div>
+    <div class="rlink"><a id="back-home">← דף הבית</a></div>`;
+
+  document.getElementById('share-btn').onclick = doShare;
+  document.getElementById('back-home').onclick = () => { history.pushState({},'',' '); loadHome(); };
+  wireBetForm();
+  renderBetList();
+  renderResults();
+}
+
+function renderLockChip() {
+  const chip = document.getElementById('lock-chip');
+  if (!chip) return;
+  const closed = isClosed(currentRoom?.locked);
+  chip.className = 'chip ' + (closed ? 'chip-l' : 'chip-o');
+  chip.textContent = closed ? '🔒 סגורים' : '🟢 פתוחים';
+}
+
+function renderBetList() {
+  const el = document.getElementById('bet-list');
+  if (!el || !currentRoom) return;
+  const bets = Object.values(currentRoom.bets || {});
+  if (!bets.length) { el.innerHTML = ''; return; }
+  el.innerHTML = `<div class="card" style="margin-top:8px">
+    <div class="ctitle">הגישו הימור (${bets.length})</div>
+    ${bets.map(b=>`<div class="bitem"><span class="bname">${esc(b.name)}</span><span class="btime">${fmtT(b.submittedAt)}</span></div>`).join('')}
+  </div>`;
+}
+
+function renderResults() {
+  const el = document.getElementById('results-list');
+  if (!el || !currentRoom) return;
+  const results = currentRoom.results || [];
+  if (!results.length) { el.innerHTML = ''; return; }
+  const bets = currentRoom.bets || {};
+  el.innerHTML = '<div style="margin-top:8px">' + results.map(r => {
+    const scored = scoreRound(r, bets);
+    const rows = scored.length
+      ? scored.map((s,i)=>`<tr><td class="${i===0?'rg':i===1?'rs':''}">${i+1}</td><td style="text-align:right">${esc(s.name)}</td><td class="${s.score===0?'s0':s.score>30?'sh':''}">${s.score}</td></tr>`).join('')
+      : `<tr><td colspan=3 style="color:var(--fg2);padding:14px">אין הימורים עדיין</td></tr>`;
+    const mItems = PARTIES.filter(p=>r.mandates?.[p.id]!=null).map(p=>`<span class="pi"><span class="pp">${esc(p.name)}</span><span class="pn"> ${r.mandates[p.id]}</span></span>`).join('');
+    return `<div class="rcard">
+      <div class="rtitle">📊 ${esc(r.label)}</div>
+      <div class="twrap"><table class="stbl"><thead><tr><th>#</th><th style="text-align:right">שם</th><th>שגיאות</th></tr></thead><tbody>${rows}</tbody></table></div>
+      ${mItems?`<details style="margin-top:10px"><summary>תוצאות שהוזנו</summary><div class="pg" style="margin-top:7px">${mItems}</div></details>`:''}
+      ${r.timestamp?`<div style="font-size:.73rem;color:var(--fg2);margin-top:8px">עודכן: ${fmtT(r.timestamp)}</div>`:''}
+    </div>`;
+  }).join('') + '</div>';
+}
+
+function scoreRound(r, bets) {
+  return Object.values(bets).map(b => {
+    let sc = 0;
+    PARTIES.forEach(p => {
+      const actual = r.mandates?.[p.id] ?? null;
+      if (actual !== null) sc += Math.abs((b.bets?.[p.id]||0) - actual);
+    });
+    return {name: b.name, score: sc};
+  }).sort((a,b) => a.score - b.score);
+}
+
+function betFormHTML() {
+  const rows = PARTIES.map(p => {
+    const d = POLL_DATA[p.id] || [null,null,null];
+    const pCells = d.map(n=>`<td class="pcell">${n!==null?n:'<span style="color:var(--fg2);font-weight:400">—</span>'}</td>`).join('');
+    return `<tr>
+      <td style="text-align:right"><div class="pname">${esc(p.name)}</div><div class="pleader">${esc(p.leader)}</div></td>
+      <td style="padding:5px 8px"><input type="number" class="minput bet-inp" data-party="${p.id}" min="0" max="120" value="0"></td>
+      ${pCells}
+    </tr>`;
+  }).join('');
+  return `<div class="card">
+    <div class="ctitle">הגש את ההימור שלך</div>
+    <div class="fld"><label for="bname">השם שלך</label><input type="text" id="bname" placeholder="הכנס שם…" maxlength="30" autocomplete="off"></div>
+    <div class="twrap"><table class="stbl btbl">
+      <thead><tr><th style="text-align:right">מפלגה</th><th>הימור</th><th>ע'12</th><th>ע'13</th><th>ע'14</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>
+    <div class="tbar tunder" id="tbar" style="margin-top:10px">סה"כ: 0 / 120 מנדטים</div>
+    <div style="margin-top:10px"><button class="btn btn-n btn-f" id="sub-btn">הגש הימור</button></div>
+    <p style="font-size:.76rem;color:var(--fg2);text-align:center;margin:9px 0 0">כל סטייה ממנדט = נקודת שגיאה. פחות = טוב יותר.</p>
+  </div>`;
+}
+
+function wireBetForm() {
+  const inputs = document.querySelectorAll('.bet-inp');
+  if (!inputs.length) return;
+  const upd = () => {
+    let t = 0; inputs.forEach(i=>t+=(parseInt(i.value)||0));
+    const b = document.getElementById('tbar'); if(!b) return;
+    b.textContent = `סה"כ: ${t} / 120 מנדטים`;
+    b.className = 'tbar ' + (t===120?'tok':t>120?'tover':'tunder');
+  };
+  inputs.forEach(i=>i.addEventListener('input',upd)); upd();
+  const btn = document.getElementById('sub-btn'); if (!btn) return;
+  btn.onclick = async () => {
+    const name = document.getElementById('bname')?.value.trim();
+    if (!name) { document.getElementById('bname')?.focus(); return; }
+    const bets = {};
+    inputs.forEach(i => { bets[i.dataset.party] = parseInt(i.value)||0; });
+    btn.disabled = true; btn.textContent = 'שולח…';
+    try {
+      await api('POST', `/api/rooms/${currentRoomCode}/bets`, { name, bets });
+      try { localStorage.setItem('bet_' + currentRoomCode, name); } catch(e){}
+      currentRoom.bets = currentRoom.bets || {};
+      currentRoom.bets[name] = { name, bets, submittedAt: new Date().toISOString() };
+      renderRoom();
+    } catch(e) {
+      btn.disabled = false; btn.textContent = 'הגש הימור';
+      const msgEl = document.getElementById('msg-room');
+      if (msgEl) flash(msgEl, 'שגיאה: ' + e.message, 'e');
+    }
+  };
+}
+
+async function doShare() {
+  const baseUrl = location.origin;
+  const msg = `הימורי בחירות 2026 🗳️\nהצטרפו לחדר של ${currentRoom?.name}!\n\nקוד כניסה: ${currentRoomCode}\nקישור למשחק: ${baseUrl}`;
+  try {
+    if (navigator.share) { await navigator.share({title:'הימורי בחירות 2026', text: msg, url: baseUrl}); }
+    else { await navigator.clipboard.writeText(msg); const b = document.getElementById('share-btn'); b.innerHTML='<span>✓ הועתק!</span>'; setTimeout(()=>b.innerHTML='📤 שתף את חדר המשפחה',2500); }
+  } catch(e) {
+    try { await navigator.clipboard.writeText(msg); } catch(e2){}
+  }
+}
+
+// ── Admin ──
+
+function renderAdminLogin() {
+  if (evtSource) evtSource.close();
+  document.getElementById('hsub').textContent = 'כניסה לניהול';
+  app().innerHTML = `<div class="card">
+    <div class="ctitle">כניסה לניהול</div>
+    <div id="msg-al"></div>
+    <div class="fld"><label for="apw">סיסמת מנהל</label><input type="password" id="apw" placeholder="הכנס סיסמה…"></div>
+    <button class="btn btn-n btn-f" id="al-btn">כניסה</button>
+    <p style="font-size:.78rem;color:var(--fg2);text-align:center;margin-top:10px">הסיסמה: <strong>bechirut2026</strong></p>
+  </div>
+  <div class="rlink"><a id="back-home2">← חזרה לדף הבית</a></div>`;
+  document.getElementById('back-home2').onclick = () => loadHome();
+  const tryLogin = async () => {
+    const pw = document.getElementById('apw')?.value; if(!pw){document.getElementById('apw')?.focus();return;}
+    try {
+      await api('POST','/api/admin/login',{password:pw});
+      adminToken = await sha256(pw);
+      await renderAdmin();
+    } catch(e) { flash(document.getElementById('msg-al'),'סיסמה שגויה','e'); }
+  };
+  document.getElementById('al-btn').onclick = tryLogin;
+  document.getElementById('apw').addEventListener('keydown', e => { if(e.key==='Enter') tryLogin(); });
+}
+
+async function sha256(s) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+  return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+async function renderAdmin() {
+  connectSSE('*');
+  document.getElementById('hsub').textContent = 'פאנל ניהול';
+  const state = await api('GET', '/api/state');
+  const rooms = state.rooms || {};
+  const results = state.results || [];
+  const closed = isClosed(state.bettingLocked);
+  const roomKeys = Object.keys(rooms);
+  const totalBets = roomKeys.reduce((s,k)=>s+Object.keys(rooms[k].bets||{}).length,0);
+
+  const roomRows = roomKeys.map(k => {
+    const r = rooms[k];
+    return `<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--bdr);gap:8px;flex-wrap:wrap">
+      <div><div style="font-weight:700">${esc(r.name)}</div><div style="font-size:.78rem;color:var(--fg2)">${Object.keys(r.bets||{}).length} הימורים · קוד: ${k}</div></div>
+    </div>`;
+  }).join('');
+
+  const resRows = results.map(r => `<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--bdr);gap:8px">
+    <div><div style="font-weight:700">${esc(r.label)}</div><div style="font-size:.76rem;color:var(--fg2)">${fmtT(r.timestamp)}</div></div>
+    <button class="btn-d" data-delr="${r.id}">מחק</button>
+  </div>`).join('');
+
+  app().innerHTML = `
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:11px">
+        <div class="ctitle" style="margin:0">פאנל ניהול</div>
+        <button class="btn btn-o" id="logout-btn" style="padding:7px 14px">התנתק</button>
+      </div>
+      <div id="msg-adm"></div>
+      <div class="srow">
+        <div class="stile"><div class="snum">${roomKeys.length}</div><div class="slbl">חדרי משפחה</div></div>
+        <div class="stile"><div class="snum">${totalBets}</div><div class="slbl">הימורים</div></div>
+        <div class="stile"><div class="snum">${results.length}</div><div class="slbl">סבבי תוצאות</div></div>
+      </div>
+      <button class="btn ${closed?'btn-g':'btn-d'} btn-f" id="tog-btn">${closed?'🔓 פתח הימורים':'🔒 נעל הימורים עכשיו'}</button>
+      <div style="font-size:.8rem;color:var(--fg2);margin-top:7px">מצב: <strong>${closed?'סגורים':'פתוחים'}</strong>${state.bettingLocked?' (נעול ידנית)':''}</div>
+    </div>
+    <div class="card">
+      <div class="ctitle">הזנת תוצאות לכולם</div>
+      <div class="fld"><label for="rlbl">שם הסבב</label><input type="text" id="rlbl" placeholder="מדגם 22:30 / תוצאות ביניים / סופי" maxlength="60"></div>
+      <ul class="plist">
+        ${PARTIES.map(p=>{
+          const d=POLL_DATA[p.id]||[null,null,null];
+          const polls=d.map(n=>`<div class="pcol"><span class="${n!==null?'pcol-val':'pcol-nil'}">${n!==null?n:'—'}</span></div>`).join('');
+          return `<li class="bprow">
+            <div class="pinfo"><div class="pname">${esc(p.name)}</div><div class="pleader">${esc(p.leader)}</div></div>
+            <input type="number" class="minput ri" data-party="${p.id}" min="0" max="120" placeholder="?">
+            <div class="poll-cells">${polls}</div>
+          </li>`;
+        }).join('')}
+      </ul>
+      <div style="margin-top:12px"><button class="btn btn-g btn-f" id="sv-btn">💾 שמור תוצאות לכולם</button></div>
+    </div>
+    ${results.length?`<div class="card"><div class="ctitle">סבבי תוצאות</div>${resRows}</div>`:''}
+    ${roomKeys.length?`<div class="card"><div class="ctitle">חדרים פעילים</div>${roomRows}</div>`:''}
+    <div class="rlink"><a id="back-home3">← חזרה לדף הבית</a></div>`;
+
+  document.getElementById('logout-btn').onclick = () => { adminToken = null; loadHome(); };
+  document.getElementById('back-home3').onclick = () => loadHome();
+  document.getElementById('tog-btn').onclick = async () => {
+    const btn = document.getElementById('tog-btn'); btn.disabled = true;
+    try { await api('POST','/api/admin/lock'); await renderAdmin(); }
+    catch(e) { flash(document.getElementById('msg-adm'),'שגיאה: '+e.message,'e'); btn.disabled=false; }
+  };
+  document.getElementById('sv-btn').onclick = async () => {
+    const lbl = document.getElementById('rlbl')?.value.trim(); if(!lbl){document.getElementById('rlbl')?.focus();return;}
+    const mandates = {};
+    document.querySelectorAll('.ri').forEach(i=>{const v=i.value.trim();if(v!=='')mandates[i.dataset.party]=parseInt(v)||0;});
+    const btn = document.getElementById('sv-btn'); btn.disabled=true; btn.textContent='שומר…';
+    try {
+      await api('POST','/api/admin/results',{label:lbl,mandates});
+      flash(document.getElementById('msg-adm'),'✓ התוצאות נשמרו לכולם!','s');
+      document.getElementById('rlbl').value='';
+      document.querySelectorAll('.ri').forEach(i=>i.value='');
+      btn.disabled=false; btn.textContent='💾 שמור תוצאות לכולם';
+    } catch(e) { flash(document.getElementById('msg-adm'),'שגיאה: '+e.message,'e'); btn.disabled=false; btn.textContent='💾 שמור תוצאות לכולם'; }
+  };
+  document.querySelectorAll('[data-delr]').forEach(b => {
+    b.onclick = async () => {
+      if (!confirm('למחוק תוצאה זו?')) return;
+      try { await api('DELETE',`/api/admin/results/${b.dataset.delr}`); await renderAdmin(); } catch(e){}
+    };
+  });
+}
+
+// ── Boot ──
+loadHome();
+</script>
+</body>
+</html>
