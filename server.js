@@ -138,8 +138,7 @@ app.get('/api/rooms/:code', (req, res) => {
 // POST /api/rooms/:code/bets — submit bet
 app.post('/api/rooms/:code/bets', (req, res) => {
   const locked = db.prepare("SELECT value FROM config WHERE key='betting_locked'").get()?.value === '1';
-  const closeTime = new Date('2026-10-28T00:00:00+03:00');
-  if (locked || new Date() >= closeTime) return res.status(403).json({ error: 'ההימורים נסגרו' });
+  if (locked) return res.status(403).json({ error: 'ההימורים נסגרו' });
 
   const room = db.prepare('SELECT * FROM rooms WHERE code=?').get(req.params.code);
   if (!room) return res.status(404).json({ error: 'חדר לא נמצא' });
