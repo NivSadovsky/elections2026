@@ -7,7 +7,7 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const DB_PATH = process.env.DB_PATH || path.join(__dirname, 'data.db');
-const ADMIN_HASH = process.env.ADMIN_HASH || 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3'; // bechirut2026 sha256
+const ADMIN_HASH = process.env.ADMIN_HASH || '183d2521aa09971fb10ee297a9af5a589c310054f33bdec6a87ee40e26008778'; // bechirut2026 sha256
 
 const db = new DatabaseSync(DB_PATH);
 
